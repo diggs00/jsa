@@ -33,6 +33,7 @@ function reload() {
 gulp.task('watch', function() {
     gulp.watch('../less/custom/*.less', ['less'])  // Watch all the .less files, then run the less task
     gulp.watch('../**/*.html', ['html']);  // Watch all the .html files, then run the RELOAD HTML task
+    gulp.watch('../js/*.js', ['js']);  // Watch all the .js files, then run the RELOAD JS task
 });
 
 
@@ -54,12 +55,17 @@ gulp.task('less', function () {
 
 // RELOAD HTML TASK
 gulp.task('html' , function() {
-    gulp.src('../**/*.html')
+    gulp.src('../*.html')
+    .pipe(reload());
+})
+
+// RELOAD JS TASK
+gulp.task('js' , function() {
+    gulp.src('../js/*.js')
     .pipe(reload());
 })
 
 
 
 
-
-gulp.task('default', ['server', 'watch', 'less', 'html']); // Default will run the 'entry' watch task
+gulp.task('default', ['server', 'watch', 'less', 'html', 'js']); // Default will run the 'entry' watch task
